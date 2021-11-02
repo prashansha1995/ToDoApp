@@ -5,3 +5,7 @@ button{
     color:indigo;
     width: 100px;
 }
+
+.alert{
+    color:red;
+}
