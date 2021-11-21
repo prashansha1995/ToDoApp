@@ -6,6 +6,7 @@ import FooterComponent from '../footer/FooterComponent'
 import SessionService from '../session-storage/SessionService'
 import LogoutComponent from '../LogoutComponent'
 import AuthenticationComponent from '../session-storage/AuthenticationComponent'
+import HelloWorldService from '../../api/HelloWorldService'
 
 class ToDoApp extends Component{
 
@@ -95,12 +96,37 @@ function ErrorComponent(){
 }
 
 class WelcomeComponent extends Component{
+    constructor(props){
+        super(props)
+        this.retrieveHelloWorld=this.retrieveHelloWorld.bind(this);
+        this.handleSuccessResponse=this.handleSuccessResponse.bind(this);
+        this.state={
+            message:''
+        }
+    }
    render(){
        return(
+           <div>
            <div>Welcome {this.props.match.params.username} !You can manage your Todos's <Link to="/todoList">Here</Link></div>
-       )
+            <button className="btn btn-success" onClick={this.retrieveHelloWorld}>Click Here For BackEnd Hello World</button>
+           
+                Welcome {this.state.message} 
+            
+            </div>
+           )
    }
+
+   
+ retrieveHelloWorld(){
+    HelloWorldService.retriveHelloWorld()
+    .then(response=> this.handleSuccessResponse(response))
+    }
+
+    handleSuccessResponse(response){
+      this.setState({message:response.data})
+    }
 }
+
 
  class LoginComponent extends Component{
 
